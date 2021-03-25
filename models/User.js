@@ -29,6 +29,11 @@ User.init(
                 len: [6],
             },
         },
+        email: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        }
     },
     {
         // setting up hooks
