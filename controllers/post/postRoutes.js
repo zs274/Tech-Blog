@@ -51,7 +51,7 @@ router.post('/new', withAuth, async (req, res) => {
     }
 });
 
-router.post('./edit/:id', withAuth, async (req, res) => {
+router.put('./edit/:id', withAuth, async (req, res) => {
     try {
         const postData = await Post.update(req.body, {
             where: {
@@ -95,6 +95,58 @@ router.delete('/edit/:id', withAuth, async (req, res) => {
         res.status(500).json(err);
     }
 });
+
+router.get('/:id', withAuth, async (req, res) => {
+    try {
+        const postData = await Post.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: [{
+                model: Comment,
+                attributes: ['id', 'user_id', 'post_id', 'comment_text', 'date_posted'],
+            include: {
+                model: User,
+                attributes: ['username']
+            }
+            }],
+        });
+
+        if (!postData) {
+            res.status(404).json({ message: 'No post with this id' });
+            return;
+        }
+
+        const post = postData.get({ plain: true });
+
+        res.render('post', {
+            post, 
+            logged_in: req.sessiom.logged_in,
+        });
+    } catch (err) {
+        res.status(500).json(err);
+    }
+});
+
+router.post('/:id', withAuth, async (req, res) => {
+    try {
+        const newComment = await Comment.create({
+            text: req.body.text,
+            user_id: req.session.user_id,
+            post_id: req.body.id
+        });
+
+        res.status(200).json(newComment);
+    } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+    }
+});
+
+function writeToFile(post, filename) {
+    fs.writeFile(`./views/partials/${filename}.handlebars`, post, (err) => 
+    err ? console.error(err) : console.log ('Created new post'));
+};
 
 updateFilename = async (post) => {
     const updatedFilename = post.id;
