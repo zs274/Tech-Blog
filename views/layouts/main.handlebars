@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Blog</title>
+    <link rel="stylesheet" href="../../public/css/jass.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1>Tech Blog</h1>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">Tech</a>
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Dashboard</a>
+                </li>
+                {{#if logged_in}}
+                <li>
+                    <button class="btn" id="logout">Logout</button>
+                </li>
+                {{else}}
+                <li>
+                    <button ahref="/login" class="btn" id="login">Login</button>
+                </li>
+                {{/if}}
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container contatiner-fluid">
+        {{{ body }}}
+    </main>
+
+{{#if logged_in}}
+<script src="../../public/js/logout.js"></script>
+{{#else}}
+<script src="../../public/js/login.js"></script>
+{{/if}}
+
+</body>
+
+</html>
