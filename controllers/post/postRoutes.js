@@ -1,9 +1,6 @@
-// EDIT
-
 const router = require('express').Router();
-const { User, Post, Comment } = require('../../models')
+const { User, Post, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
-const fs = require('fs');
 
 router.get('/new', async (req, res) => {
     try {
@@ -39,13 +36,8 @@ router.post('/new', withAuth, async (req, res) => {
             name: req.body.name,
             description: req.body.description,
             user_id: req.session.user_id,
+            content: req.body.text
         });
-
-        updateFilename(newPost);
-        const filename = newPost.id;
-        const writeFile = req.body.text;
-
-        writeToFile(writeFile, filename);
 
         res.status(200).json(newPost);
     } catch (err) {
@@ -62,10 +54,8 @@ router.put('./edit/:id', withAuth, async (req, res) => {
         });
 
         postData.description = req.body.description;
-        const writeFile = req.body.text;
-        const filename = req.body.filename;
-
-        writeToFile(writeFile, filename);
+        postData.content = req.body.content;
+        postData.name = req.body.name;
 
         if (!postData) {
             res.status(404).json({ message: 'No post with this id' });
@@ -111,7 +101,12 @@ router.get('/:id', withAuth, async (req, res) => {
                 model: User,
                 attributes: ['username']
             }
-            }],
+            },
+        {
+            model: User,
+            attributes: ['username']
+        }
+        ],
         });
 
         if (!postData) {
@@ -145,22 +140,4 @@ router.post('/:id', withAuth, async (req, res) => {
     }
 });
 
-function writeToFile(post, filename) {
-    fs.writeFile(`./views/partials/${filename}.handlebars`, post, (err) => 
-    err ? console.error(err) : console.log ('Created new post'));
-};
-
-updateFilename = async (post) => {
-    const updatedFilename = post.id;
-    try {
-        const getPost = await Post.findByPk(post.id)
-        if (getPost) {
-            getPost.update({
-                filename: updatedFilename,
-            })
-        }
-    } catch (err) {
-        console.log(err);
-    }
-};
-
+module.exports = router;

@@ -1,17 +1,16 @@
 [
     {
-        "name": "ElonGate - Crypto",
-        "description": "Elon Musk created his own crypto",
-        "content": "This is an article about ElonGate",
+        "name": "AI's secret army of ghost workers want to be seen",
+        "description": "Workers who label content and help computers understand language want their own voices to be heard.",
+        "content": "This is an article about AI workers",
         "date": "2020-03-28",
-        "filename": "elongate"
+        "filename": "AI"
     },
     {
-        "name": "ElonGate - Crypto",
-        "description": "Elon Musk created his own crypto",
-        "content": "This is an article about ElonGate",
+        "name": "Union-tracking software proposed by Amazon",
+        "description": "Amazon has responded to a leaked memo about plans to track union actiity among workers by saying it is happy for its staff to join labour organisations.",
+        "content": "This is an article about Amazon",
         "date": "2020-03-28",
-        "filename": "elongate"
+        "filename": "amazon"
     }
-
 ]
