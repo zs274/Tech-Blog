@@ -1,0 +1,10 @@
+{{#each posts as |post| }}
+<div class="row align-center mb-5">
+    <div class="col-md-6">
+        <h2 class="padding header"><a href="/post/{{post.id}}">{{post.name}}<a /></h2>
+        <p class="padding description">{{post.description}}</p>
+        <p class="padding info">{{format_date post.date}} | {{user.username}}</p>
+        <p class="padding read"><a href="/post/{{post.id}}">Read more</a></p>
+    </div>
+</div>
+{{/each}}

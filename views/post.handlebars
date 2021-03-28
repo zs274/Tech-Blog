@@ -1,0 +1,9 @@
+<h2>{{post.name}}</h2>
+<p>{{format_date post.date}} | {{post.user.username}}</p>
+<p class="content" contenteditable="false" id="post-text">{{post.content}}</p>
+
+<hr>
+
+{{> comments post.comments}}
+
+<script src="/js/comment.js"></script>
